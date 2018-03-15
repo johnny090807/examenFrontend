@@ -28,7 +28,7 @@
                     </ul>
                 </div>
                 &nbsp;
-                <button class="btn btn-primary" [disabled]="credit===0" (click)="addCredit()">Toevoegen</button> 
+                <button class="btn btn-primary" [disabled]="credit===0" (click)="addCredit()">Toevoegen</button>
             </div>
         </div>
         <div class="card-tab" *ngIf="tab==='kaarten'">
@@ -85,10 +85,9 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{ subscription && subscription.name?  subscription.name : 'Geen abonnement' }}
                         <span class="caret"></span></button>
-                
-                    <ul class="dropdown-menu">
-                        <li><a (click)="setSubscription('geen abonnement'); addSubscription()">Geen abonnement</a></li>
-                        <li><a *ngFor="let subscription of subscriptions" (click)="setSubscription(subscription); addSubscription()">{{subscription.name}}</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" (click)="setSubscription('geen abonnement'); addSubscription()">Geen abonnement</a></li>
+                        <li><a class="dropdown-item" *ngFor="let subscription of subscriptions" (click)="setSubscription(subscription); addSubscription()">{{subscription.name}}</a></li>
                     </ul>
                 </div>
             </div>

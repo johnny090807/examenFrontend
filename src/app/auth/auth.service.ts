@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnInit} from '@angular/core';
 import { Http, Headers, Response } from "@angular/http";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -8,13 +8,25 @@ import {ErrorService} from "../errors/error.service";
 import {Subscription} from "../subscription/subscription.model";
 
 @Injectable()
-export class AuthService{
+export class AuthService implements OnInit{
 
     public auth: Auth;
 
 	constructor(private http: Http,
 				private errorService: ErrorService){}
 
+    ngOnInit(){
+      if (this.isLoggedIn()) {
+        this.getAuthByToken()
+          .subscribe(
+            (data: any) => {
+              const auth = new Auth(data.obj.userName, data.obj.password, data.obj._id, data.obj.admin, data.obj.SubscriptionPlan);
+              this.auth = auth;
+            },
+            error => console.error(error)
+          );
+      }
+	  }
 
     /**
      * [signup Sign an auth up]
@@ -138,13 +150,6 @@ export class AuthService{
      * @return {Observable<Auth>} [returns the observable to the request]
      */
     getAuths(): Observable<Auth>{
-        // if auth.admin is not true
-        if(this.auth.admin === false)
-        {
-            throw new Error('Je bent geen Admin!');
-        }
-        else
-        {
             const headers = new Headers({'Content-Type': 'application/json'});
             return this.http.get(localStorage.apiAddress + 'auth/getAuths' , {headers: headers})
                 .map((response: Response) => response.json())
@@ -152,7 +157,6 @@ export class AuthService{
                     this.errorService.handleError(error.json());
                     return Observable.throw(error.json());
                 });
-        }
     }
 
     /**

@@ -40,8 +40,8 @@
                   (click)="addSubscription(auth)">
                   Toevoegen
                </button>
-               <!--<input type="checkbox" name="checkbox_subscription" class="pull-right" [ngModel]="checkIfValid(auth,subscription)" (change)="onAddOrRemoveSubscription(auth, supscription)">-->
-               <!--<input type="checkbox" name="checkbox_subscription" class="pull-right" [checked]="auth.getSubscriptionById(subscription.subscriptionId)" (change)="onAddOrRemoveSubscription(auth, supscription)">-->
+               <input type="checkbox" name="checkbox_subscription" class="pull-right" [ngModel]="checkIfValid(auth,subscription)" (change)="onAddOrRemoveSubscription(auth, supscription)">
+               <input type="checkbox" name="checkbox_subscription" class="pull-right" [checked]="auth.getSubscriptionById(subscription.subscriptionId)" (change)="onAddOrRemoveSubscription(auth, supscription)">
            </li>
        </ul>
     </div>

@@ -114,6 +114,7 @@ import {AuthService} from '../auth/auth.service';
 })
 
 export class UserComponent implements OnInit {
+    public subscriptions: Subscription[];
     public subscription: Subscription;
     public identifierTemplate: any;
     public credit = 0;
@@ -134,8 +135,8 @@ export class UserComponent implements OnInit {
         };
         this.subscriptionService.getAllSubscriptionsByAuthId()
             .subscribe(
-                (subscriptions: Subscription) => {
-                    this.subscription = subscriptions;
+                (subscriptions: any) => {
+                    this.subscriptions = subscriptions;
                 }
             );
 
@@ -164,6 +165,7 @@ export class UserComponent implements OnInit {
         // if (user.subscriptionPlan === null) {
         //     // this.subscription = 'Geen abonnement';
         // } else {
+      if (user.subscriptionPlan !== undefined) {
         this.subscriptionService.getSubscriptionById(user)
         .subscribe(
           (result: any) => {
@@ -171,6 +173,7 @@ export class UserComponent implements OnInit {
             },
             error => console.error(error)
         );
+      }
         // }
     }
 

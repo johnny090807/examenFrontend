@@ -6,7 +6,7 @@ import {Auth} from './auth/auth.model';
     selector: 'app-header',
     template: `
 
-        <img src="https://programmeercursussen.nl/wp-content/uploads/2018/02/logo.png" style="margin-bottom: 20px" >
+        <img src="../assets/logo.png" style="margin-bottom: 20px" >
         <header class="row" >
             <nav class="col-md-8 col-md-offset-0"   >
                 <ul class="nav nav-pills red">
