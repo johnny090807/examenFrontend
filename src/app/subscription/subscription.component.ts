@@ -194,12 +194,12 @@ export class SubscriptionComponent {
     let out = false;
     console.log(auths, sub);
 
-    for (let subscription of auths.subscriptions) {
+    for (let subscription of auths.SubscriptionPlan) {
       if (subscription.subscriptionId === sub.subscriptionId) {
         out = true;
         return out;
       }
-    }4
+    }
     return out;
   }
   // checkIfValidId(auths: Auth, sub: Subscription) {
