@@ -114,7 +114,7 @@ export class AuthService implements OnInit{
         }else{
             const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
             const headers = new Headers({'Content-Type': 'application/json'});
-            return this.http.post(localStorage.apiAddress + 'auth/' + auth.authId + '/subscriptions' + token,body, {headers: headers})
+            return this.http.post(localStorage.apiAddress + 'auth/' + localStorage.authId + '/subscriptions' + token,body, {headers: headers})
                 .map((response: Response) => response.json())
                 .catch((error: Response) => {
                     this.errorService.handleError(error.json());
@@ -133,10 +133,10 @@ export class AuthService implements OnInit{
         if(this.auth.admin === false)
         {
             throw new Error('Je bent geen Admin!');
-        }else{
+        } else {
             const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
             const headers = new Headers({'Content-Type': 'application/json'});
-            return this.http.delete(localStorage.apiAddress + 'auth/' + auth.authId + /subscriptions/ + subscription.subscriptionId + token, {headers: headers})
+            return this.http.delete(localStorage.apiAddress + 'auth/' + localStorage.authId + /subscriptions/ + subscription.subscriptionId + token, {headers: headers})
                 .map((response: Response) => response.json())
                 .catch((error: Response) => {
                     this.errorService.handleError(error.json());

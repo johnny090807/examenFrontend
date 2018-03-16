@@ -165,7 +165,7 @@ export class UserComponent implements OnInit {
         // if (user.subscriptionPlan === null) {
         //     // this.subscription = 'Geen abonnement';
         // } else {
-      if (user.subscriptionPlan !== undefined) {
+      if (user.subscriptionPlan !== undefined || user.subscriptionPlan !== null ) {
         this.subscriptionService.getSubscriptionById(user)
         .subscribe(
           (result: any) => {

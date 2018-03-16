@@ -3,7 +3,6 @@ export class Subscription{
         public name: string,
         public description: string,
         public discount: number,
-        public subscriptionId?:string,
-        public authId?: string
-    ){}
+        public subscriptionId?: Subscription
+    ) {}
 }

@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
-import {User} from '../user/user.model';
 import {Subscription} from './subscription.model';
 import {SubscriptionService} from './subscription.service';
 import {AuthService} from '../auth/auth.service';
@@ -111,7 +110,7 @@ import {Auth} from '../auth/auth.model';
     `]
 })
 
-export class SubscriptionComponent {
+export class SubscriptionComponent implements OnInit {
 
   public credit = 0;
   public subscriptionPlan;
@@ -119,13 +118,25 @@ export class SubscriptionComponent {
   @Input() subscription: Subscription;
   @Input() auths: Auth;
 
-  public auth: Auth;
+  // public auth: Auth;
 
   constructor(
     private userService: UserService,
     private subscriptionService: SubscriptionService,
     private authService: AuthService
   ) {}
+
+
+  ngOnInit() {
+    this.authService.getAuths()
+      .subscribe(
+
+        (data: any) => {
+          this.auths = data.obj;
+        },
+        error => console.error(error)
+      );
+  }
 
   onEdit() {
     this.subscriptionService.editSubscription(this.subscription)
@@ -143,31 +154,38 @@ export class SubscriptionComponent {
         error => console.error(error)
       );
   }
-  ngOnInit() {
-    this.authService.getAuths()
-      .subscribe(
 
-        (data: any) => {
-            this.auths = data.obj;
-        },
+  addSubscription(auth: Auth) {
+    this.authService.addAuthSubscription(auth, this.subscription)
+      .subscribe(
+        result  => console.log (result),
+        error => console.error (error)
+      );
+  }
+  removeSubscription(auth: Auth) {
+    this.authService.removeAuthSubscription(auth, this.subscription)
+      .subscribe(
+        result => console.log(result),
         error => console.error(error)
       );
   }
 
-  addSubscription(auth: Auth, sub: Subscription) {
-    this.authService.addAuthSubscription(auth, this.subscription)
-      .subscribe(
-        data  => console.log  (data),
-        error => console.error(error.json())
-      );
+  checkIfValid(auths: Auth, sub: Subscription) {
+    const out = false;
+    const match = auths.subscriptions.find(
+        (subscription) => subscription.subscriptionId === sub);
+    // console.log(match);
+    // for (const subscription of auths.subscriptions) {
+    //   if (subscription.subscriptionId === sub.subscriptionId) {
+    //     out = true;
+    //     return out;
+    //   } else if (subscription.subscriptionId !== sub.subscriptionId) {
+    //
+    //   }
+    // }
+    return match;
+    // return out;
   }
-  removeSubscription(auth: Auth, sub: Subscription) {
-    this.authService.removeAuthSubscription(auth, this.subscription)
-      .subscribe(
-        result => console.log(result)
-      );
-  }
-
   // onAddOrRemoveSubscription(auth: Auth, sub: Subscription) {
   //   const promise;
   //   const isAdded = this.auth.addSubscription(sub);
@@ -190,18 +208,7 @@ export class SubscriptionComponent {
   //     .catch(() => console.error('boee'));
   //   console.log(this.auth.SubscriptionPlan);
   // }
-  checkIfValid(auths: Auth, sub: Subscription) {
-    let out = false;
-    console.log(auths, sub);
 
-    for (let subscription of auths.SubscriptionPlan) {
-      if (subscription.subscriptionId === sub.subscriptionId) {
-        out = true;
-        return out;
-      }
-    }
-    return out;
-  }
   // checkIfValidId(auths: Auth, sub: Subscription) {
   //   const out = false;
   //   for (const subscription of auths.SubscriptionPlan) {

@@ -27,21 +27,29 @@
     <div class="auths-tab" *ngIf="tab==='auths'" >
        <ul *ngFor="let auth of auths">
            <li>
-               {{auth.userName}}
+               {{ auth.userName }}
                <button
-                       class="pull-right"
-                       *ngIf="!checkIfValid(auth, subscription)"
-                       (click)="removeSubscription(auth)">
+                   class="pull-right"
+                   *ngIf="!checkIfValid(auth, subscription)"
+                   (click)="removeSubscription(auth)">
                    Verwijderen
                </button>
                <button
                   class="pull-right"
-                  *ngIf="checkIfValid(auth, subscription)"
+                  style="margin-right: 20px;"
+                  *ngIf="!checkIfValid(auth, subscription)"
                   (click)="addSubscription(auth)">
                   Toevoegen
                </button>
-               <input type="checkbox" name="checkbox_subscription" class="pull-right" [ngModel]="checkIfValid(auth,subscription)" (change)="onAddOrRemoveSubscription(auth, supscription)">
-               <input type="checkbox" name="checkbox_subscription" class="pull-right" [checked]="auth.getSubscriptionById(subscription.subscriptionId)" (change)="onAddOrRemoveSubscription(auth, supscription)">
+               <!--<input
+               type="checkbox"
+               name="checkbox_subscription"
+               class="pull-right"
+               [ngModel]="checkIfValid(auth,subscription)"
+               (change)="onAddOrRemoveSubscription(auth, supscription)
+               ">-->
+                <!--*ngIf="!checkIfValid(auth, subscription)"-->
+               <!--<input type="checkbox" name="checkbox_subscription" class="pull-right" [checked]="auth.getSubscriptionById(subscription.subscriptionId)" (change)="onAddOrRemoveSubscription(auth, supscription)">-->
            </li>
        </ul>
     </div>
