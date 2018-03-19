@@ -30,14 +30,14 @@
                {{ auth.userName }}
                <button
                    class="pull-right"
-                   *ngIf="!checkIfValid(auth, subscription)"
+                   *ngIf="checkIfValid(auth.subscriptions, subscription.subscriptionId)"
                    (click)="removeSubscription(auth)">
                    Verwijderen
                </button>
                <button
                   class="pull-right"
                   style="margin-right: 20px;"
-                  *ngIf="!checkIfValid(auth, subscription)"
+                  *ngIf="!checkIfValid(auth.subscriptions, subscription.subscriptionId)"
                   (click)="addSubscription(auth)">
                   Toevoegen
                </button>

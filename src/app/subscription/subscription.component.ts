@@ -118,8 +118,6 @@ export class SubscriptionComponent implements OnInit {
   @Input() subscription: Subscription;
   @Input() auths: Auth;
 
-  // public auth: Auth;
-
   constructor(
     private userService: UserService,
     private subscriptionService: SubscriptionService,
@@ -136,6 +134,7 @@ export class SubscriptionComponent implements OnInit {
         },
         error => console.error(error)
       );
+
   }
 
   onEdit() {
@@ -165,26 +164,20 @@ export class SubscriptionComponent implements OnInit {
   removeSubscription(auth: Auth) {
     this.authService.removeAuthSubscription(auth, this.subscription)
       .subscribe(
-        result => console.log(result),
-        error => console.error(error)
+        result => console.log   (result),
+        error => console.error  (error)
       );
   }
 
-  checkIfValid(auths: Auth, sub: Subscription) {
-    const out = false;
-    const match = auths.subscriptions.find(
-        (subscription) => subscription.subscriptionId === sub);
-    // console.log(match);
-    // for (const subscription of auths.subscriptions) {
-    //   if (subscription.subscriptionId === sub.subscriptionId) {
-    //     out = true;
-    //     return out;
-    //   } else if (subscription.subscriptionId !== sub.subscriptionId) {
-    //
-    //   }
-    // }
-    return match;
-    // return out;
+  checkIfValid(auth: any, sub: any) {
+    let out = false;
+    for (const subscription of auth) {
+      if (subscription === sub) {
+        out = true;
+        return out;
+      } 
+      return out;
+    }
   }
   // onAddOrRemoveSubscription(auth: Auth, sub: Subscription) {
   //   const promise;
