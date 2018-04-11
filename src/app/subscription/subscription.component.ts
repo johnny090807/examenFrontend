@@ -126,6 +126,7 @@ export class SubscriptionComponent implements OnInit {
 
 
   ngOnInit() {
+    /*get all auths*/
     this.authService.getAuths()
       .subscribe(
 
@@ -137,6 +138,7 @@ export class SubscriptionComponent implements OnInit {
 
   }
 
+  /*edit the subscription*/
   onEdit() {
     this.subscriptionService.editSubscription(this.subscription)
       .subscribe(
@@ -144,6 +146,7 @@ export class SubscriptionComponent implements OnInit {
         error => console.error(error)
       );
   }
+  /*delete the subscription*/
   onDelete() {
     const myConfirm = confirm('Wilt u "' + this.subscription.name + '" echt verwijderen?');
     if (myConfirm === false) { return; }
@@ -153,7 +156,7 @@ export class SubscriptionComponent implements OnInit {
         error => console.error(error)
       );
   }
-
+  /*add the subscription from the auth*/
   addSubscription(auth: Auth) {
     this.authService.addAuthSubscription(auth, this.subscription)
       .subscribe(
@@ -161,6 +164,8 @@ export class SubscriptionComponent implements OnInit {
         error => console.error (error)
       );
   }
+
+  /*remove the subscription from the auth*/
   removeSubscription(auth: Auth) {
     this.authService.removeAuthSubscription(auth, this.subscription)
       .subscribe(
@@ -168,7 +173,7 @@ export class SubscriptionComponent implements OnInit {
         error => console.error  (error)
       );
   }
-
+  /*Check if the subscription of the auth is the same as the sub that is there*/
   checkIfValid(auth: any, sub: any) {
     let out = false;
     for (const subscription of auth) {
@@ -179,40 +184,4 @@ export class SubscriptionComponent implements OnInit {
       return out;
     }
   }
-  // onAddOrRemoveSubscription(auth: Auth, sub: Subscription) {
-  //   const promise;
-  //   const isAdded = this.auth.addSubscription(sub);
-  //   if (isAdded === false) {
-  //     const isRemoved = this.auth.removeSubscription(sub);
-  //     promise = this.authService.removeAuthSubscription(auth, this.subscription)
-  //       .subscribe(
-  //         result => console.log(result),
-  //         error => console.error(error)
-  //       );
-  //   } else {
-  //     promise = this.authService.addAuthSubscription(auth, this.subscription)
-  //       .subscribe(
-  //         data  => console.log  (data),
-  //         error => console.error(error)
-  //       );
-  //   }
-  //   promise
-  //     .then(() => console.log('yay'))
-  //     .catch(() => console.error('boee'));
-  //   console.log(this.auth.SubscriptionPlan);
-  // }
-
-  // checkIfValidId(auths: Auth, sub: Subscription) {
-  //   const out = false;
-  //   for (const subscription of auths.SubscriptionPlan) {
-  //     if (subscription.subscriptionId === this.subscription.subscriptionId) {
-  //       out = true;
-  //       return out;
-  //     } else if (auth.subscriptions !== this.subscription.subscriptionId) {
-  //       out = false;
-  //       return out;
-  //     }
-  //   }
-  //   return out;
-  // }
 }

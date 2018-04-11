@@ -24,6 +24,7 @@ export class ErrorComponent implements OnInit{
     constructor(private errorService: ErrorService){}
 
     ngOnInit(){
+        // Handle the error that has been sent
         this.errorService.errorOccurred
             .subscribe(
                 (error: Error)=>{
@@ -34,6 +35,7 @@ export class ErrorComponent implements OnInit{
     }
 
     onErrorHandeld(){
+        // Once the error has been handeld, set the display to none
         this.display = 'none';
     }
 

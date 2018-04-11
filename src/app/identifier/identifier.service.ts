@@ -112,20 +112,6 @@ export class IdentifierService implements OnInit{
             });
 
     }
-    // editIdentifier(identifier:Identifier){
-    //     this.identifierIsEdit.emit(identifier);
-    // }
-    // patchIdentifier(identifier: Identifier){
-    //     const body = JSON.stringify(identifier);
-    //     const headers = new Headers({'Content-Type': 'application/json'});
-    //     const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-    //     return this.http.patch(localStorage.apiAddress + 'identifier/' + identifier.identifierId + token, body, {headers: headers})
-    //         .map((response: Response) => response.json())
-    //         .catch((error: Response) => {
-    //             this.errorService.handleError(error.json());
-    //             return Observable.throw(error.json());
-    //         });
-    // }
 
     /**
      * [deleteIdentifier delete an identifier]

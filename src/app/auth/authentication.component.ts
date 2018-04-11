@@ -31,12 +31,13 @@ export class AuthenticationComponent implements OnInit{
     public auth: Auth;
 
     constructor(private authService: AuthService){}
-
+    // check on if someone is logged in
     isLoggedIn(){
         return this.authService.isLoggedIn();
     }
 
     ngOnInit(){
+        // take the auth from the auth service
         this.auth = this.authService.auth;
     }
 

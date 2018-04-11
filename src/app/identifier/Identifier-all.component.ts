@@ -28,6 +28,7 @@ export class IdentifierAllComponent implements OnInit{
                 private authService: AuthService){}
 
     ngOnInit(){
+        /*When logged in get all the identifiers*/
         if(this.authService.isLoggedIn()){
             this.identfierService.getAllIdentifiers()
                 .subscribe(

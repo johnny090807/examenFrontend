@@ -26,11 +26,10 @@ export class SignupComponent implements OnInit {
     constructor(private authService: AuthService) {}
 
     onSubmit() {
-        const auth = new Auth(
-            this.myForm.value.userName,
-            this.myForm.value.password
-        );
+        // set the auth for the signup request
+        const auth = new Auth(this.myForm.value.userName, this.myForm.value.password);
         this.authService.signup(auth)
+            // subscribe to all the data that is sent back
             .subscribe(
                 data => console.log(data),
                 error => console.log(error)
@@ -39,6 +38,7 @@ export class SignupComponent implements OnInit {
     }
 
     ngOnInit() {
+        // set the formControl
         this.myForm = new FormGroup({
             userName: new FormControl(null),
             password: new FormControl(null)

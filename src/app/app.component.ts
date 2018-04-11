@@ -15,10 +15,12 @@ export class AppComponent implements OnInit {
 
     constructor(private authService: AuthService ) {}
     ngOnInit() {
-
+            //Set the apiAdress for the requests to the server :)
         // localStorage.setItem('apiAddress', 'http://192.168.0.105:3000/api/');
         localStorage.setItem('apiAddress', 'http://localhost:3000/api/');
         // localStorage.setItem('apiAddress', 'http://mps.blancoblauw.nl:3000/api/');
+            //set the user to check on admin
+        
         if (this.authService.isLoggedIn()) {
             this.authService.getAuthByToken()
             .subscribe(

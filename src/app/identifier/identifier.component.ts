@@ -13,11 +13,8 @@ export class IdentifierComponent {
 
     constructor(private identifierService: IdentifierService) {}
 
-    // onEdit(){
-    //     this.identifierService.editIdentifier(this.identifier);
-    // }
+    /*Deleting identifier of user*/
     onDelete() {
-
         const myConfirm = confirm('Wilt u "' + this.identifier.nfcId + '" echt verwijderen?');
         if (myConfirm === false) { return; }
         this.identifierService.deleteIdentifier(this.identifier)

@@ -31,6 +31,7 @@ export class UserIdentifierListComponent implements OnInit {
                 private userService: UserService) {}
 
     ngOnInit() {
+        // once the editBool is true, get the params and get all the identifiers by ID
         if (this.userService.editBool === true) {
             this.route.params.subscribe(params => {
                 this.userId = params['userId'];

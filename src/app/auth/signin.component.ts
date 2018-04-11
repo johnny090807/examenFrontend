@@ -27,10 +27,12 @@ export class SigninComponent {
     constructor(private authService: AuthService, private router: Router) {}
 
     onSubmit() {
+        // Set the auth for the signin request
         const auth = new Auth(this.myForm.value.userName, this.myForm.value.password);
         this.authService.signin(auth)
         .subscribe(
           (data: any) => {
+                // Set the item in the localstorage
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('authId', data.authId);
                 auth.admin = data.admin;
@@ -42,6 +44,7 @@ export class SigninComponent {
     }
 
     ngOnInit() {
+        // Set formgroup variables
         this.myForm = new FormGroup({
                 userName: new FormControl(null),
                 password: new FormControl(null, Validators.required)
