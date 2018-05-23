@@ -9,16 +9,6 @@ import { Auth } from './auth.model';
     selector: 'app-signin',
     templateUrl: './signin.component.html',
     styles: [`
-        button{
-            color: white;
-            border: 0px;
-            background: linear-gradient(to right, #671E9D , #03AEF1);
-        }
-        button:hover{
-            color: white;
-            border: 0px;
-            background: linear-gradient(to right,#03AEF1  , #671E9D);
-        }
     `]
 })
 export class SigninComponent {
@@ -32,11 +22,13 @@ export class SigninComponent {
         this.authService.signin(auth)
         .subscribe(
           (data: any) => {
+              console.log(data)
                 // Set the item in the localstorage
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('authId', data.authId);
+                localStorage.setItem('authId', data.userId);
+                localStorage.setItem('admin', data.admin);
                 auth.admin = data.admin;
-                this.router.navigateByUrl('/users');
+                this.router.navigateByUrl('/auth');
             },
             error => console.error(error)
         );

@@ -11,6 +11,7 @@ import {Subscription} from "../subscription/subscription.model";
 export class AuthService implements OnInit{
 
     public auth: Auth;
+    public allAuths: Auth[];
 
 	constructor(private http: Http,
 				private errorService: ErrorService){}
@@ -20,7 +21,7 @@ export class AuthService implements OnInit{
         this.getAuthByToken()
           .subscribe(
             (data: any) => {
-              const auth = new Auth(data.obj.userName, data.obj.password, data.obj._id, data.obj.admin, data.obj.SubscriptionPlan);
+              const auth = new Auth(data.obj.userName, data.obj.password, data.obj._id, data.obj.admin);
               this.auth = auth;
             },
             error => console.error(error)
@@ -70,7 +71,7 @@ export class AuthService implements OnInit{
                 // put the response in a variable for the return
                 var result = response.json();
                 // set the auth
-                this.auth= auth;
+                this.auth = auth;
                 // return the result
                 return result;
             })
@@ -93,6 +94,30 @@ export class AuthService implements OnInit{
         const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.get(localStorage.apiAddress + 'auth/getAdmin' + token, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error:Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    getAuthById(): Observable<Auth>{
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.get(localStorage.apiAddress + 'auth/' + localStorage.authId, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error:Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    /**
+     * [getAuths get ALL the auths from the server]
+     * @return {Observable<Auth>} [returns the observable to the request]
+     */
+    getAuths(): Observable<Auth>{
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.get(localStorage.apiAddress + 'auth/getAuths', {headers: headers})
             .map((response: Response) => response.json())
             .catch((error:Response) => {
                 this.errorService.handleError(error.json());
@@ -145,19 +170,7 @@ export class AuthService implements OnInit{
         }
     }
 
-    /**
-     * [getAuths get ALL the auths from the server]
-     * @return {Observable<Auth>} [returns the observable to the request]
-     */
-    getAuths(): Observable<Auth>{
-            const headers = new Headers({'Content-Type': 'application/json'});
-            return this.http.get(localStorage.apiAddress + 'auth/getAuths' , {headers: headers})
-                .map((response: Response) => response.json())
-                .catch((error: Response) => {
-                    this.errorService.handleError(error.json());
-                    return Observable.throw(error.json());
-                });
-    }
+
 
     /**
      * [logout log the user out by removing the localStorage]
@@ -166,7 +179,6 @@ export class AuthService implements OnInit{
         localStorage.removeItem('token');
         localStorage.removeItem('authId');
         this.auth = null;
-        location.reload();
     }
 
     /**

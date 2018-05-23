@@ -6,15 +6,14 @@ import {Auth} from './auth/auth.model';
     selector: 'app-header',
     template: `
 
-        <img src="../assets/logo.png" style="margin-bottom: 20px" >
+        <img  style="margin-bottom: 20px" >
         <header class="row" >
             <nav class="col-md-8 col-md-offset-0"   >
                 <ul class="nav nav-pills red">
-                    <li routerLinkActive="active"><a [routerLink]="['/users']">Gebruikers</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['/users']">Home</a></li>
                     <li routerLinkActive="active"><a [routerLink]="['/auth']">
                         <span *ngIf="authService.isLoggedIn()===false">Log in</span>
                         <span *ngIf="authService.isLoggedIn()===true">Log out</span></a></li>
-                    <li routerLinkActive="active" *ngIf="checkAdmin()"><a [routerLink]="['/subscriptions']">Abonnementen</a></li>
 
                 </ul>
             </nav>
