@@ -33,6 +33,7 @@ import {SubscriptionComponent} from "./subscription/subscription.component";
 import {SubscriptionsComponent} from "./subscription/subscriptions.component";
 import {SubscriptionInputComponent} from "./subscription/subscription-input.component";
 import {SubscriptionListComponent} from "./subscription/subscription-list.component";
+import { BedrijfComponent } from './bedrijf/bedrijf.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import {SubscriptionListComponent} from "./subscription/subscription-list.compon
         SubscriptionComponent,
         SubscriptionsComponent,
         SubscriptionInputComponent,
-        SubscriptionListComponent
+        SubscriptionListComponent,
+        BedrijfComponent
     ],
     imports: [
     BrowserModule, 
